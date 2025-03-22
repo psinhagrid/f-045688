@@ -1,0 +1,92 @@
+/* StepIndicator custom styles */
+
+/* Fixed positioning */
+.steps-container-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  padding: 0.25rem 1rem !important;
+  border-radius: 0 !important;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Text styles */
+.step-indicator .ant-steps-item-title {
+  font-size: 0.75rem !important;
+}
+
+.step-indicator .ant-steps-item-description {
+  font-size: 0.65rem !important;
+  max-width: 100px;
+}
+
+/* Container styles */
+.steps-container {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Compact styles for fixed position */
+.steps-container-fixed .ant-steps-item-icon {
+  margin-top: 0 !important;
+}
+
+.steps-container-fixed .ant-steps {
+  min-height: unset !important;
+}
+
+/* Enhanced styling for active step */
+.step-indicator .ant-steps-item-process .ant-steps-item-icon {
+  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.15),
+    0 4px 8px rgba(0, 0, 0, 0.05) !important;
+  transform: scale(1.08);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Hover effects */
+.step-indicator .ant-steps-item:hover .ant-steps-item-title {
+  color: rgb(var(--primary-rgb)) !important;
+}
+
+.step-indicator .ant-steps-item:hover .ant-steps-item-icon {
+  transform: scale(1.05);
+  box-shadow: 0 0 8px rgba(var(--primary-rgb), 0.2) !important;
+}
+
+/* Responsive tweaks for mobile */
+@media (max-width: 768px) {
+  .step-indicator .ant-steps-item-description {
+    max-width: none !important;
+    font-size: 0.7rem !important;
+  }
+
+  .steps-container {
+    padding: 0.75rem !important;
+  }
+
+  .step-indicator .ant-steps-item-title {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Animated pulse for active step icon */
+.step-indicator .animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Page content padding adjustment for fixed header */
+#page-content {
+  padding-top: 3rem !important;
+}

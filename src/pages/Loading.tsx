@@ -1,17 +1,17 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import StepIndicator from "@/components/StepIndicator";
+import { Card, CardContent } from "@/components/ui/card";
 
 const loadingMessages = [
-  "Initializing system...",
-  "Connecting to local server...",
-  "Verifying credentials...",
-  "Loading project data...",
-  "Preparing environment...",
-  "Almost there..."
+  "Analyzing project structure...",
+  "Identifying code patterns...",
+  "Running security checks...",
+  "Evaluating code quality...",
+  "Generating optimization suggestions...",
+  "Preparing final report...",
 ];
 
 const Loading = () => {
@@ -20,45 +20,56 @@ const Loading = () => {
   const [messageIndex, setMessageIndex] = useState(0);
 
   useEffect(() => {
-    // Simulate loading progress
-    const timer = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(timer);
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        if (prevProgress >= 100) {
+          clearInterval(interval);
           setTimeout(() => {
             navigate("/instructions");
-          }, 500);
+          }, 1500);
           return 100;
         }
-        
-        // Update message based on progress
-        if (prev > 0 && prev % 16 === 0) {
-          setMessageIndex(prev => (prev + 1) % loadingMessages.length);
-        }
-        
-        return prev + 1;
+        return prevProgress + 1;
       });
-    }, 50);
+    }, 100);
 
-    return () => clearInterval(timer);
+    const messageInterval = setInterval(() => {
+      setMessageIndex((prevIndex) => (prevIndex + 1) % loadingMessages.length);
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(messageInterval);
+    };
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/50 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-3xl mx-auto mb-10">
-        <StepIndicator currentStep={2} totalSteps={4} />
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted/50 flex flex-col items-center p-4">
+      <div className="w-full max-w-3xl mx-auto">
+        <StepIndicator currentStep={2} totalSteps={4} fixedAtTop={true} />
       </div>
-      
-      <div className="w-full max-w-md mx-auto text-center">
-        <div className="flex justify-center mb-8">
-          <Loader2 className="h-16 w-16 text-primary animate-spin" />
-        </div>
-        
-        <h2 className="text-2xl font-semibold mb-6">Processing</h2>
-        <p className="text-muted-foreground mb-6">{loadingMessages[messageIndex]}</p>
-        
-        <Progress value={progress} className="h-2 mb-2" />
-        <p className="text-sm text-muted-foreground">{Math.round(progress)}%</p>
+
+      <div
+        id="page-content"
+        className="w-full flex flex-col items-center justify-center flex-1"
+      >
+        <Card className="w-full max-w-md mx-auto shadow-lg mt-8">
+          <CardContent className="p-6 text-center">
+            <div className="flex justify-center mb-8">
+              <Loader2 className="h-16 w-16 text-primary animate-spin" />
+            </div>
+
+            <h2 className="text-2xl font-semibold mb-6">Processing</h2>
+            <p className="text-muted-foreground mb-6">
+              {loadingMessages[messageIndex]}
+            </p>
+
+            <Progress value={progress} className="h-2 mb-2" />
+            <p className="text-sm text-muted-foreground">
+              {Math.round(progress)}%
+            </p>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
