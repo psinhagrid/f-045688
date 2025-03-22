@@ -41,7 +41,7 @@ const Setup = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/50 flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-3xl mx-auto mb-10">
-        <StepIndicator currentStep={1} totalSteps={3} />
+        <StepIndicator currentStep={1} totalSteps={4} />
       </div>
       
       <Card className="w-full max-w-md mx-auto shadow-lg">
