@@ -13,10 +13,11 @@ const Setup = () => {
     localHostPort: "",
     projectDirectory: "",
     username: "",
-    password: ""
+    password: "",
+    userRequest: ""
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -24,8 +25,8 @@ const Setup = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validate form
-    if (!formData.localHostPort || !formData.projectDirectory || !formData.username || !formData.password) {
+    // Validate form - only mandatory fields
+    if (!formData.localHostPort || !formData.projectDirectory) {
       toast.error("Please fill in all required fields");
       return;
     }
@@ -77,12 +78,12 @@ const Setup = () => {
             
             <div className="space-y-2">
               <label htmlFor="username" className="text-sm font-medium">
-                Username <span className="text-destructive">*</span>
+                Username for Test Application
               </label>
               <Input
                 id="username"
                 name="username"
-                placeholder="Enter username"
+                placeholder="Enter test username"
                 value={formData.username}
                 onChange={handleChange}
               />
@@ -90,14 +91,27 @@ const Setup = () => {
             
             <div className="space-y-2">
               <label htmlFor="password" className="text-sm font-medium">
-                Password <span className="text-destructive">*</span>
+                Password for Test Application
               </label>
               <Input
                 id="password"
                 name="password"
                 type="password"
-                placeholder="Enter password"
+                placeholder="Enter test password"
                 value={formData.password}
+                onChange={handleChange}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <label htmlFor="userRequest" className="text-sm font-medium">
+                User Request
+              </label>
+              <Input
+                id="userRequest"
+                name="userRequest"
+                placeholder="Enter your request (optional)"
+                value={formData.userRequest}
                 onChange={handleChange}
               />
             </div>
