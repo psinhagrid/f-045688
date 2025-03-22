@@ -73,7 +73,7 @@ const Report = () => {
 
   const handleStartOver = () => {
     sessionStorage.clear();
-    navigate('/setup');
+    navigate('/'); // Changed from '/setup' to '/' to navigate to the Index page
   };
 
   return (
